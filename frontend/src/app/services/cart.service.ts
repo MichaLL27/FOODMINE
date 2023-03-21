@@ -17,12 +17,12 @@ export class CartService {
     if (cartItem) return;
 
     this.cart.items.push(new CartItem(food));
-    this.getCartFromLocalStorage();
+    this.setCartToLOcalStorage();
   }
 
   removeFromCart(foodId: string): void {
     this.cart.items = this.cart.items.filter((item) => item.food.id != foodId);
-    this.getCartFromLocalStorage();
+    this.setCartToLOcalStorage();
   }
 
   changeQuantity(foodId: string, quantity: number) {
@@ -31,12 +31,12 @@ export class CartService {
 
     cartItem.quantity = quantity;
     cartItem.price = quantity * cartItem.food.price;
-    this.getCartFromLocalStorage();
+    this.setCartToLOcalStorage();
   }
 
   clearCart() {
     this.cart = new Cart();
-    this.getCartFromLocalStorage();
+    this.setCartToLOcalStorage();
   }
 
   getCartObservable(): Observable<Cart> {
