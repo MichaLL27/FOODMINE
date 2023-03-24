@@ -83,14 +83,14 @@ export const sample_users: any[] = [
     name: "Micha Laz",
     email: "laz@gmail.com",
     password: "12345",
-    addres: "Tbilisi",
+    adress: "Tbilisi",
     isAdmin: true,
   },
   {
     name: "James Car",
     email: "car@gmail.com",
     password: "12345",
-    addres: "New York",
+    adress: "New York",
     isAdmin: false,
   },
 ];
