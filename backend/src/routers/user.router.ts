@@ -2,7 +2,9 @@ import { Router } from "express";
 import { sample_users } from "../data";
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
-import { userModel } from "../models/user.model";
+import { User, userModel } from "../models/user.model";
+import { HTTP_BAD_REQUEST } from "../constants/http_status";
+import bcrypt from "bcryptjs";
 
 const router = Router();
 
@@ -27,8 +29,33 @@ router.post(
     if (user) {
       res.send(generateTokenResponse(user));
     } else {
-      res.status(400).send("User name or password is not valid!");
+      res.status(HTTP_BAD_REQUEST).send("User name or password is not valid!");
     }
+  })
+);
+
+router.post(
+  "/register",
+  asyncHandler(async (req, res) => {
+    const { name, email, password, adress } = req.body;
+    const user = await userModel.findOne({ email });
+    if (user) {
+      res.status(HTTP_BAD_REQUEST).send("User is already exist, please login!");
+      return;
+    }
+    const ecryptedPassword = await bcrypt.hash(password, 10);
+
+    const newUser: User = {
+      id: "",
+      name,
+      email: email.toLowerCase(),
+      password: ecryptedPassword,
+      adress,
+      isAdmin: false,
+    };
+
+    const dbUser = await userModel.create(newUser);
+    res.send(generateTokenResponse(dbUser));
   })
 );
 
@@ -43,8 +70,10 @@ const generateTokenResponse = (user: any) => {
       expiresIn: "30d",
     }
   );
-  user.token = token;
-  return user;
+  return {
+    ...user.toObject(),
+    token,
+  };
 };
 
 export default router;
