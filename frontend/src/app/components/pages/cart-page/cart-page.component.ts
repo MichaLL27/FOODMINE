@@ -18,7 +18,6 @@ export class CartPageComponent {
   }
 
   removeFromCart(cartItem: CartItem) {
-    console.log(cartItem);
     this.cartService.removeFromCart(cartItem.food.id);
   }
 
