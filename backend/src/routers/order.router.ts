@@ -14,7 +14,7 @@ router.post(
     const requestOrder = req.body;
 
     if (requestOrder.items.length <= 0) {
-      res.status(HTTP_BAD_REQUEST).send("Cart is Empty!");
+      res.status(HTTP_BAD_REQUEST).send("Cart Is Empty!");
       return;
     }
 
@@ -22,6 +22,7 @@ router.post(
       user: req.user.id,
       status: OrderStatus.NEW,
     });
+
     const newOrder = new OrderModel({ ...requestOrder, user: req.user.id });
     await newOrder.save();
     res.send(newOrder);

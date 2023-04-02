@@ -1,13 +1,13 @@
 import { model, Schema, Types } from "mongoose";
-import { Food, FoodSchema } from "./food.model";
 import { OrderStatus } from "../constants/order_status";
+import { Food, FoodSchema } from "./food.model";
 
 export interface LatLng {
   lat: string;
   lng: string;
 }
 
-export const latLngSchema = new Schema<LatLng>({
+export const LatLngSchema = new Schema<LatLng>({
   lat: { type: String, required: true },
   lng: { type: String, required: true },
 });
@@ -25,25 +25,24 @@ export const OrderItemSchema = new Schema<OrderItem>({
 });
 
 export interface Order {
-  id: number;
+  id: string;
   items: OrderItem[];
   totalPrice: number;
   name: string;
-  adress: string;
-  adressLatLng?: LatLng;
+  address: string;
+  addressLatLng: LatLng;
   paymentId: string;
-  createdAt: string;
   status: OrderStatus;
   user: Types.ObjectId;
-  createdAd: Date;
+  createdAt: Date;
   updatedAt: Date;
 }
 
 const orderSchema = new Schema<Order>(
   {
     name: { type: String, required: true },
-    adress: { type: String, required: true },
-    adressLatLng: { type: [latLngSchema], required: true },
+    address: { type: String, required: true },
+    addressLatLng: { type: LatLngSchema, required: true },
     paymentId: { type: String },
     totalPrice: { type: Number, required: true },
     items: { type: [OrderItemSchema], required: true },

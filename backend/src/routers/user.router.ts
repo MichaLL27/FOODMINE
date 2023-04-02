@@ -73,6 +73,11 @@ const generateTokenResponse = (user: any) => {
   );
   return {
     ...user.toObject(),
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    adress: user.adress,
+    isAdmin: user.isAdmin,
     token,
   };
 };
