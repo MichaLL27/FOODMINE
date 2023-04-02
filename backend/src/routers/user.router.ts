@@ -66,7 +66,7 @@ const generateTokenResponse = (user: any) => {
       email: user.email,
       isAdmin: user.isAdmin,
     },
-    "SomeRandomText",
+    process.env.JWT_SECRET!,
     {
       expiresIn: "30d",
     }
