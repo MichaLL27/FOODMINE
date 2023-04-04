@@ -7,6 +7,7 @@ import { FoodPageComponent } from './components/pages/food-page/food-page.compon
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'payment',
+    component: PaymentPageComponent,
     canActivate: [AuthGuard],
   },
 ];

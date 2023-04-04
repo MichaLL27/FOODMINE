@@ -58,10 +58,9 @@ export class CheckoutPageComponent implements OnInit {
     this.order.name = this.fc.name.value;
     this.order.adress = this.fc.adress.value;
 
-    console.log(this.order);
     this.orderService.create(this.order).subscribe({
       next: () => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/payment');
       },
       error: (errorResponse) => {
         this.toastrService.error(errorResponse.error, 'Cart');
