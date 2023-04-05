@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Order } from 'src/app/shared/models/Order';
 
 @Component({
   selector: 'paypal-button',
   templateUrl: './paypal-button.component.html',
   styleUrls: ['./paypal-button.component.scss'],
 })
-export class PaypalButtonComponent {}
+export class PaypalButtonComponent {
+  @Input()
+  order!: Order;
+}
